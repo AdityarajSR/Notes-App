@@ -6,27 +6,68 @@ fs.writeFileSync('notes.txt', 'This file was created by using node.js')
 // This is to append some new information to given text File(i.e. the content inside it)
 fs.appendFileSync('notes.txt', ' The above file which was created is now being appended using a string')
 
-// This is to run the file in utils.js 
-// const exported_name = require('./utils.js')
-// console.log(exported_name)
-
-// const summing = require('./utils.js')
-// const sum_is = summing(5, 6)
-// console.log(sum_is)
-
-// Challenge 
-// const getNotes = require('./notes')
-// const import_notes = getNotes()
-// console.log(import_notes)
-
-const validator = require('validator')
-
-console.log(validator.isEmail('adityaraj.rajput2002@gmail.com'))
-console.log(validator.isURL('ASDFASDFAS'))
-console.log(validator.isURL('https://www.udemy.com/course/the-complete-nodejs-developer-course-2/learn/lecture/13728848#overview'))
-
 // chalk library
 const chalk = require('chalk')
 // import chalk from 'chalk';   //{not working} 
 // use npm i chalk@4.1.2 to use chalk module
 console.log(chalk.yellowBright.inverse('Adityaraj'));
+
+console.log(process.argv[0]);
+
+const command = process.argv[2];
+
+if(command === 'Adityaraj'){
+    console.log('Good Boy');
+}else {
+    console.log('Pta nhi kaun hai!')
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+// Parsing the command line arguments
+
+// Below is the command that we give into the command line
+// node app.js add --title="Here is the list of grocery items, The things in the title will also be parsed"
+const yargs = require('yargs');
+const { log } = require('console');
+// console.log(yargs.argv)        // This will give the version as 1.0.0
+
+// Customizing the version of the yargs
+yargs.version('1.1.0')
+
+// Creating add command
+yargs.command({
+    command : 'to_add',
+    describe : 'Add a new note',
+    handler : function(){
+        console.log('Adding a new note');
+    }
+})
+
+// Creating remove command
+yargs.command({
+    command : 'to_remove',
+    describe : 'To remove a note',
+    handler : function(){
+        console.log('Removing a previously added note!');
+    }
+})
+
+// Creating listing command
+yargs.command({
+    command : 'to_list',
+    describe : 'To list all the notes present',
+    handler : function(){
+        console.log('Listing all the notes');
+    }
+})
+
+// Creating read command
+yargs.command({
+    command : 'to_read',
+    describe : 'reading a note',
+    handler : function(){
+        console.log('reading a note');
+    }
+})
+console.log(yargs.argv)
+
